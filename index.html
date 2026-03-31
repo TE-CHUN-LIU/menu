@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<!-- 鎖定不縮放：固定寬度 1587px = A3 橫式 @96dpi，手機橫向捲動 -->
+<meta name="viewport" content="width=1587, initial-scale=1.0">
+<title>大沏茶 DA QI CHA — 菜單</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   RESET & BASE
+   A3 橫式 = 420mm × 297mm
+   @96dpi  = 1587px × 1123px（固定，不縮放）
+══════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --W: 1587px;
+  --H: 1123px;
+
+  --slate:    #3A4F5C;
+  --slate2:   #5B7282;
+  --lime:     #7DBF2E;
+  --lime2:    #5E9420;
+  --cream:    #F7F3EE;
+  --warm:     #FDFAF6;
+  --border:   #D0C8B8;
+  --text:     #1E1E1E;
+  --sub:      #6B6157;
+  --gold:     #C49A28;
+  --white:    #ffffff;
+
+  /* per-category */
+  --c-orig-bg:  #E8F3EC; --c-orig-tx:  #2A5C3F; --c-orig-ac: #4CAF7D;
+  --c-fruit-bg: #FFF0E4; --c-fruit-tx: #A04A1A; --c-fruit-ac: #E8834A;
+  --c-milk-bg:  #EDE8F5; --c-milk-tx:  #4A2D80; --c-milk-ac: #8B6CC8;
+  --c-fresh-bg: #E4EEF9; --c-fresh-tx: #1A4A82; --c-fresh-ac: #4A88D8;
+  --c-sc-bg:    #F5F0E4; --c-sc-tx:    #6B4A10; --c-sc-ac:   #C9933A;
+}
+
+html, body {
+  width: var(--W);
+  min-height: var(--H);
+  background: var(--cream);
+  font-family: 'Noto Sans TC', 'DM Sans', sans-serif;
+  color: var(--text);
+  overflow-x: auto;   /* 手機可橫向捲動 */
+}
+
+/* ══ WRAPPER ══════════════════════════════ */
+.page {
+  width: var(--W);
+  min-height: var(--H);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ══ HEADER ════════════════════════════════ */
+.header {
+  background: var(--slate);
+  height: 116px;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.header::before {
+  content:''; position:absolute;
+  right:-50px; top:-50px;
+  width:240px; height:240px; border-radius:50%;
+  border:36px solid rgba(125,191,46,.13);
+}
+.header::after {
+  content:''; position:absolute;
+  right:100px; bottom:-70px;
+  width:170px; height:170px; border-radius:50%;
+  border:28px solid rgba(125,191,46,.08);
+}
+
+/* Logo circle */
+.logo-circle {
+  flex-shrink:0;
+  width:80px; height:80px;
+  background:var(--white);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.28);
+  position:relative; z-index:1;
+}
+.logo-circle svg { width:58px; height:58px; }
+
+/* Brand text */
+.brand { position:relative; z-index:1; }
+.brand-en {
+  font-family:'DM Sans',sans-serif; font-weight:500;
+  font-size:11px; letter-spacing:4px; color:var(--lime);
+  text-transform:uppercase; margin-bottom:3px;
+}
+.brand-zh {
+  font-weight:900; font-size:38px; color:var(--white);
+  letter-spacing:8px; line-height:1;
+}
+.brand-tag {
+  font-size:11px; color:rgba(255,255,255,.45);
+  margin-top:6px; letter-spacing:1.5px;
+}
+
+/* Promo */
+.promo { margin-left:auto; text-align:right; position:relative; z-index:1; }
+.promo-pill {
+  display:inline-block;
+  background:var(--lime); color:var(--white);
+  padding:9px 20px; border-radius:10px;
+  font-weight:700; font-size:15px;
+  margin-bottom:6px;
+}
+.promo-pill b { font-size:22px; }
+.promo-note { font-size:10px; color:rgba(255,255,255,.4); }
+
+/* ══ GRADIENT DIVIDER ══════════════════════ */
+.divider {
+  height:4px; flex-shrink:0;
+  background:linear-gradient(90deg, var(--lime) 0%, var(--gold) 50%, var(--lime) 100%);
+}
+
+/* ══ NOTICE BAR ════════════════════════════ */
+.notice {
+  background:var(--warm);
+  border-bottom:1px solid var(--border);
+  height:34px; flex-shrink:0;
+  display:flex; align-items:center;
+  padding:0 40px; gap:0;
+}
+.notice-item {
+  flex:1; display:flex; align-items:center; gap:7px;
+  font-size:12px; color:var(--sub);
+  border-right:1px solid var(--border);
+  padding:0 20px 0 0;
+}
+.notice-item:first-child { padding-left:0; }
+.notice-item:last-child  { border-right:none; }
+.notice-dot { width:7px; height:7px; border-radius:50%; background:var(--lime); flex-shrink:0; }
+
+/* ══ MENU BODY ═════════════════════════════ */
+.menu-body {
+  flex:1;
+  padding: 18px 28px 0;
+  display:grid;
+  /* 5 equal columns for 5 category cards */
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr;
+  gap: 16px;
+}
+
+/* ══ CATEGORY CARD ══════════════════════════ */
+.cat-card {
+  background:var(--warm);
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+}
+
+/* Left accent bar */
+.cat-card::before {
+  content:'';
+  position:absolute; left:0; top:0; bottom:0;
+  width:5px; border-radius:14px 0 0 14px;
+}
+.cat-original::before { background:var(--c-orig-ac); }
+.cat-fruit::before    { background:var(--c-fruit-ac); }
+.cat-milk::before     { background:var(--c-milk-ac); }
+.cat-fresh::before    { background:var(--c-fresh-ac); }
+.cat-sc::before       { background:var(--c-sc-ac); }
+
+/* Card header */
+.cat-hdr {
+  padding:10px 14px 9px 18px;
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:7px;
+  flex-shrink:0;
+}
+.cat-original .cat-hdr { background:var(--c-orig-bg); }
+.cat-fruit    .cat-hdr { background:var(--c-fruit-bg); }
+.cat-milk     .cat-hdr { background:var(--c-milk-bg); }
+.cat-fresh    .cat-hdr { background:var(--c-fresh-bg); }
+.cat-sc       .cat-hdr { background:var(--c-sc-bg); }
+
+.hdr-zh {
+  font-weight:700; font-size:15px;
+}
+.cat-original .hdr-zh { color:var(--c-orig-tx); }
+.cat-fruit    .hdr-zh { color:var(--c-fruit-tx); }
+.cat-milk     .hdr-zh { color:var(--c-milk-tx); }
+.cat-fresh    .hdr-zh { color:var(--c-fresh-tx); }
+.cat-sc       .hdr-zh { color:var(--c-sc-tx); }
+
+.hdr-en {
+  font-size:9px; letter-spacing:1px; font-weight:500;
+  color:var(--slate2); text-transform:uppercase;
+  flex:1;
+}
+.hdr-icon { font-size:17px; margin-left:auto; flex-shrink:0; }
+
+/* M badge */
+.m-badge {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:19px; height:19px; border-radius:50%;
+  background:#5C3A1E; color:#fff;
+  font-family:'DM Sans',sans-serif; font-weight:700; font-size:10px;
+  flex-shrink:0;
+}
+.m-note {
+  font-size:9px; color:var(--sub); white-space:nowrap;
+}
+
+/* Card body */
+.cat-body { flex:1; padding:8px 14px 10px 18px; display:flex; flex-direction:column; justify-content:space-evenly; }
+
+/* Item row */
+.item-row {
+  display:flex; align-items:baseline;
+  justify-content:space-between;
+  padding:5px 0;
+  border-bottom:1px dashed rgba(0,0,0,.07);
+  gap:6px;
+}
+.item-row:last-child { border-bottom:none; }
+
+.item-zh {
+  font-weight:500; font-size:14px;
+  color:var(--text); flex-shrink:0;
+  white-space:nowrap;
+}
+.item-en {
+  font-size:9.5px; color:var(--sub);
+  flex:1; min-width:0;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  margin-left:5px;
+}
+.item-price {
+  font-family:'DM Sans',sans-serif;
+  font-weight:700; font-size:15px;
+  color:var(--slate); flex-shrink:0;
+}
+.item-price::before { content:'$'; font-size:10px; opacity:.55; margin-right:1px; }
+
+/* Highlight (special) */
+.item-row.hl .item-zh  { color:#7A3E00; }
+.item-row.hl .item-price { color:var(--lime2); }
+
+/* Coffee M indicator per row */
+.m-row-badge {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:16px; height:16px; border-radius:50%;
+  background:#5C3A1E; color:#fff;
+  font-family:'DM Sans',sans-serif; font-weight:700; font-size:8px;
+  flex-shrink:0; margin-right:3px; position:relative; top:1px;
+}
+
+/* Section divider inside special+coffee card */
+.sc-divider {
+  display:flex; align-items:center; gap:8px;
+  margin:5px 0;
+}
+.sc-divider-line {
+  flex:1; height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.sc-divider-label {
+  font-size:9px; color:var(--gold); font-weight:700;
+  letter-spacing:1.5px; white-space:nowrap;
+}
+
+/* ══ BOTTOM ════════════════════════════════ */
+.bottom {
+  padding: 14px 28px 16px;
+  display:grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap:16px;
+  flex-shrink:0;
+}
+
+.info-card {
+  background:var(--warm);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px 16px;
+}
+.info-title {
+  font-size:10px; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--slate2); margin-bottom:10px;
+  display:flex; align-items:center; gap:7px;
+}
+.info-title::before {
+  content:''; display:inline-block;
+  width:16px; height:2px; background:var(--lime);
+}
+
+/* Sugar / Ice tags */
+.level-section { margin-bottom:9px; }
+.level-label { font-size:10px; color:var(--sub); margin-bottom:5px; font-weight:500; }
+.level-tags { display:flex; gap:5px; }
+.level-tag {
+  flex:1; border-radius:6px; padding:4px 2px;
+  text-align:center;
+}
+.level-tag.sugar { background:#F0EAE0; }
+.level-tag.ice   { background:#E4EDF5; }
+.level-tag .tname { font-weight:700; font-size:11.5px; color:var(--slate); display:block; }
+.level-tag .tpct  { font-size:9px;  color:var(--sub);  display:block; }
+
+/* Toppings */
+.top-row {
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding:6px 0; border-bottom:1px dashed rgba(0,0,0,.08);
+  font-size:13px;
+}
+.top-row:last-child { border-bottom:none; }
+.top-price { font-family:'DM Sans',sans-serif; font-weight:700; font-size:14px; color:var(--lime2); }
+
+/* Contact */
+.contact-phone { font-size:22px; font-weight:900; color:var(--slate); margin-bottom:4px; }
+.contact-addr  { font-size:12px; color:var(--sub); line-height:1.9; }
+.delivery-pill {
+  display:inline-block; margin-top:8px;
+  background:var(--slate); color:#fff;
+  border-radius:6px; padding:5px 14px;
+  font-size:12px; font-weight:700;
+}
+
+/* ══ FOOTER ════════════════════════════════ */
+.footer {
+  background:var(--slate); height:28px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 28px;
+  font-size:10px; color:rgba(255,255,255,.45);
+}
+.footer-right { color:var(--lime); font-weight:700; }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── HEADER ── -->
+  <div class="header">
+    <div class="logo-circle">
+      <svg viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cup body -->
+        <path d="M16 22 L18.5 46 L39.5 46 L42 22 Z"
+              fill="none" stroke="#3A4F5C" stroke-width="2" stroke-linejoin="round"/>
+        <!-- Lid -->
+        <path d="M14 22 Q14 18 29 18 Q44 18 44 22"
+              fill="none" stroke="#3A4F5C" stroke-width="2"/>
+        <!-- Drop -->
+        <circle cx="39" cy="12" r="2.2" fill="#3A4F5C"/>
+        <!-- Lime slice -->
+        <circle cx="21" cy="16" r="6.5" fill="#7DBF2E"/>
+        <circle cx="21" cy="16" r="4.8" fill="#9ED44A"/>
+        <line x1="21" y1="9.5" x2="21" y2="22.5" stroke="#5E9420" stroke-width=".9"/>
+        <line x1="14.5" y1="16" x2="27.5" y2="16" stroke="#5E9420" stroke-width=".9"/>
+        <line x1="16.5" y1="11.5" x2="25.5" y2="20.5" stroke="#5E9420" stroke-width=".7"/>
+        <line x1="25.5" y1="11.5" x2="16.5" y2="20.5" stroke="#5E9420" stroke-width=".7"/>
+      </svg>
+    </div>
+
+    <div class="brand">
+      <div class="brand-en">DA QI CHA · LONGDONLU 154 · 03-4387828</div>
+      <div class="brand-zh">大　沏　茶</div>
+      <div class="brand-tag">新鮮現泡・每日用心・三杯以上即可外送</div>
+    </div>
+
+    <div class="promo">
+      <div class="promo-pill">來店消費 買<b>5</b>送<b>1</b></div>
+      <div class="promo-note">自備環保杯折$5｜其他優惠不合併使用</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ── NOTICE ── -->
+  <div class="notice">
+    <div class="notice-item">
+      <span class="notice-dot"></span>
+      甜度可選：正常糖 100% ／ 少糖 80% ／ 半糖 50% ／ 微糖 30% ／ 無糖 0%
+    </div>
+    <div class="notice-item">
+      <span class="notice-dot"></span>
+      冰量可選：正常冰 ／ 少冰 ／ 微冰 ／ 去冰
+    </div>
+    <div class="notice-item">
+      <span class="notice-dot"></span>
+      加料：珍珠・仙草凍・椰果 各 +$10　｜　布丁 +$15
+    </div>
+  </div>
+
+  <!-- ── MENU CARDS ── -->
+  <div class="menu-body">
+
+    <!-- 經典茶系 -->
+    <div class="cat-card cat-original">
+      <div class="cat-hdr">
+        <span class="hdr-zh">經典茶系</span>
+        <span class="hdr-en">Original Tea</span>
+        <span class="hdr-icon">🍵</span>
+      </div>
+      <div class="cat-body">
+        <div class="item-row"><span class="item-zh">薰花茉香綠茶</span><span class="item-en">Green tea</span><span class="item-price">35</span></div>
+        <div class="item-row"><span class="item-zh">紅玉紅茶</span><span class="item-en">Black tea</span><span class="item-price">35</span></div>
+        <div class="item-row"><span class="item-zh">深焙鐵觀音</span><span class="item-en">Oolong tea</span><span class="item-price">35</span></div>
+        <div class="item-row"><span class="item-zh">四季青茶</span><span class="item-en">Baozhong tea</span><span class="item-price">35</span></div>
+        <div class="item-row"><span class="item-zh">烏龍綠茶</span><span class="item-en">Oolong mix</span><span class="item-price">35</span></div>
+        <div class="item-row"><span class="item-zh">冬瓜茶</span><span class="item-en">Winter melon</span><span class="item-price">40</span></div>
+        <div class="item-row"><span class="item-zh">冬瓜青茶</span><span class="item-en">Winter melon Baozhong</span><span class="item-price">40</span></div>
+        <div class="item-row"><span class="item-zh">仙草甘茶</span><span class="item-en">Mesona tea</span><span class="item-price">40</span></div>
+        <div class="item-row"><span class="item-zh">仙冬茶</span><span class="item-en">Mesona winter melon</span><span class="item-price">40</span></div>
+      </div>
+    </div>
+
+    <!-- 特色果茶 -->
+    <div class="cat-card cat-fruit">
+      <div class="cat-hdr">
+        <span class="hdr-zh">特色果茶</span>
+        <span class="hdr-en">Fruit Tea</span>
+        <span class="hdr-icon">🍋</span>
+      </div>
+      <div class="cat-body">
+        <div class="item-row"><span class="item-zh">蜂蜜綠茶(紅/青/烏)</span><span class="item-en">Honey green tea</span><span class="item-price">40</span></div>
+        <div class="item-row"><span class="item-zh">百香綠茶</span><span class="item-en">Passion fruit green tea</span><span class="item-price">45</span></div>
+        <div class="item-row hl"><span class="item-zh">百香雙Q</span><span class="item-en">Passion fruit boba jelly</span><span class="item-price">60</span></div>
+        <div class="item-row"><span class="item-zh">多多綠茶</span><span class="item-en">Green tea Yakult</span><span class="item-price">55</span></div>
+        <div class="item-row"><span class="item-zh">白甘蔗青茶</span><span class="item-en">White sugar cane green tea</span><span class="item-price">60</span></div>
+        <div class="item-row"><span class="item-zh">梅子綠茶</span><span class="item-en">Plum green tea</span><span class="item-price">55</span></div>
+        <div class="item-row"><span class="item-zh">青檸綠茶</span><span class="item-en">Lemon green tea</span><span class="item-price">55</span></div>
+        <div class="item-row"><span class="item-zh">青檸紅玉</span><span class="item-en">Lemon black tea</span><span class="item-price">55</span></div>
+        <div class="item-row"><span class="item-zh">冬瓜檸檬</span><span class="item-en">Winter melon lemon</span><span class="item-price">50</span></div>
+      </div>
+    </div>
+
+    <!-- 醇濃奶香 -->
+    <div class="cat-card cat-milk">
+      <div class="cat-hdr">
+        <span class="hdr-zh">醇濃奶香</span>
+        <span class="hdr-en">Milk Tea</span>
+        <span class="hdr-icon">🧋</span>
+      </div>
+      <div class="cat-body">
+        <div class="item-row"><span class="item-zh">紅玉奶茶</span><span class="item-en">Milk tea</span><span class="item-price">50</span></div>
+        <div class="item-row"><span class="item-zh">茉香奶綠</span><span class="item-en">Green milk tea</span><span class="item-price">50</span></div>
+        <div class="item-row"><span class="item-zh">四季奶青</span><span class="item-en">Baozhong milk tea</span><span class="item-price">50</span></div>
+        <div class="item-row"><span class="item-zh">鐵觀音奶茶</span><span class="item-en">Oolong milk tea</span><span class="item-price">50</span></div>
+        <div class="item-row"><span class="item-zh">黑糖奶茶</span><span class="item-en">Brown sugar milk tea</span><span class="item-price">50</span></div>
+        <div class="item-row"><span class="item-zh">珍珠奶茶</span><span class="item-en">Bubble milk tea</span><span class="item-price">55</span></div>
+        <div class="item-row"><span class="item-zh">仙草凍奶茶</span><span class="item-en">Grass jelly milk tea</span><span class="item-price">55</span></div>
+        <div class="item-row hl"><span class="item-zh">奶茶三兄弟</span><span class="item-en">Pearl jelly pudding tea</span><span class="item-price">60</span></div>
+        <div class="item-row"><span class="item-zh">布丁奶茶</span><span class="item-en">Pudding milk tea</span><span class="item-price">55</span></div>
+        <div class="item-row"><span class="item-zh">椰果奶茶</span><span class="item-en">Coconut jelly milk tea</span><span class="item-price">55</span></div>
+        <div class="item-row"><span class="item-zh">巧克力奶茶</span><span class="item-en">Chocolate milk tea</span><span class="item-price">55</span></div>
+      </div>
+    </div>
+
+    <!-- 香醇鮮奶 -->
+    <div class="cat-card cat-fresh">
+      <div class="cat-hdr">
+        <span class="hdr-zh">香醇鮮奶</span>
+        <span class="hdr-en">Fresh Milk</span>
+        <span class="hdr-icon">🥛</span>
+      </div>
+      <div class="cat-body">
+        <div class="item-row"><span class="item-zh">紅茶拿鐵(綠/青/烏)</span><span class="item-en">Fresh milk latte</span><span class="item-price">65</span></div>
+        <div class="item-row"><span class="item-zh">冬瓜鮮奶</span><span class="item-en">White gourd with milk</span><span class="item-price">75</span></div>
+        <div class="item-row"><span class="item-zh">黑糖Q鮮奶</span><span class="item-en">Brown sugar pearl milk</span><span class="item-price">70</span></div>
+        <div class="item-row"><span class="item-zh">布丁Q鮮奶</span><span class="item-en">Pudding pearl milk</span><span class="item-price">75</span></div>
+        <div class="item-row"><span class="item-zh">仙草Q鮮奶</span><span class="item-en">Grass jelly pearl milk</span><span class="item-price">75</span></div>
+        <div class="item-row"><span class="item-zh">仙草凍鮮奶</span><span class="item-en">Grass jelly fresh milk</span><span class="item-price">70</span></div>
+        <div class="item-row hl"><span class="item-zh">鮮奶三兄弟</span><span class="item-en">Pearl jelly pudding milk</span><span class="item-price">80</span></div>
+      </div>
+    </div>
+
+    <!-- 店長特調 & 咖啡 -->
+    <div class="cat-card cat-sc">
+      <div class="cat-hdr">
+        <span class="hdr-zh">店長特調&amp;咖啡</span>
+        <span class="m-badge" title="咖啡僅供中杯">M</span>
+        <span class="m-note">咖啡僅中杯</span>
+        <span class="hdr-icon">⭐</span>
+      </div>
+      <div class="cat-body">
+        <div class="item-row hl"><span class="item-zh">蜂蜜檸檬</span><span class="item-en">Honey lemonade</span><span class="item-price">60</span></div>
+        <div class="item-row hl"><span class="item-zh">金桔檸檬</span><span class="item-en">Kumquat lemonade</span><span class="item-price">60</span></div>
+        <div class="item-row hl"><span class="item-zh">檸檬多多</span><span class="item-en">Yakult lemonade</span><span class="item-price">70</span></div>
+        <div class="item-row hl"><span class="item-zh">白甘蔗檸檬</span><span class="item-en">White cane lemon</span><span class="item-price">60</span></div>
+
+        <div class="sc-divider">
+          <div class="sc-divider-line"></div>
+          <span class="sc-divider-label">☕ COFFEE</span>
+          <div class="sc-divider-line"></div>
+        </div>
+
+        <div class="item-row">
+          <span class="item-zh"><span class="m-row-badge">M</span>美式咖啡</span>
+          <span class="item-en">Americano</span>
+          <span class="item-price">50</span>
+        </div>
+        <div class="item-row">
+          <span class="item-zh"><span class="m-row-badge">M</span>經典咖啡</span>
+          <span class="item-en">Classic coffee</span>
+          <span class="item-price">55</span>
+        </div>
+        <div class="item-row">
+          <span class="item-zh"><span class="m-row-badge">M</span>拿鐵咖啡</span>
+          <span class="item-en">Latte</span>
+          <span class="item-price">65</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /menu-body -->
+
+  <!-- ── BOTTOM INFO ── -->
+  <div class="bottom">
+
+    <!-- 甜度 & 冰量 -->
+    <div class="info-card">
+      <div class="info-title">甜度 &amp; 冰量  Sugar &amp; Ice</div>
+      <div class="level-section">
+        <div class="level-label">甜度 Sugar Level</div>
+        <div class="level-tags">
+          <div class="level-tag sugar"><span class="tname">正常糖</span><span class="tpct">100%</span></div>
+          <div class="level-tag sugar"><span class="tname">少糖</span><span class="tpct">80%</span></div>
+          <div class="level-tag sugar"><span class="tname">半糖</span><span class="tpct">50%</span></div>
+          <div class="level-tag sugar"><span class="tname">微糖</span><span class="tpct">30%</span></div>
+          <div class="level-tag sugar"><span class="tname">無糖</span><span class="tpct">0%</span></div>
+        </div>
+      </div>
+      <div class="level-section">
+        <div class="level-label">冰量 Ice Level</div>
+        <div class="level-tags">
+          <div class="level-tag ice"><span class="tname">正常冰</span><span class="tpct">100%</span></div>
+          <div class="level-tag ice"><span class="tname">少冰</span><span class="tpct">50%</span></div>
+          <div class="level-tag ice"><span class="tname">微冰</span><span class="tpct">30%</span></div>
+          <div class="level-tag ice"><span class="tname">去冰</span><span class="tpct">0%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 加料 -->
+    <div class="info-card">
+      <div class="info-title">加料區  Toppings</div>
+      <div class="top-row"><span>珍珠  Tapioca Pearl</span><span class="top-price">+$10</span></div>
+      <div class="top-row"><span>仙草凍  Grass Jelly</span><span class="top-price">+$10</span></div>
+      <div class="top-row"><span>椰果  Coconut Jelly</span><span class="top-price">+$10</span></div>
+      <div class="top-row"><span>布丁  Pudding</span><span class="top-price">+$15</span></div>
+    </div>
+
+    <!-- 聯絡 -->
+    <div class="info-card">
+      <div class="info-title">聯絡我們  Contact</div>
+      <div class="contact-phone">03-4387828</div>
+      <div class="contact-addr">
+        桃園市中壢區龍平里龍東路154號<br>
+        （龍岡國中斜對面）
+      </div>
+      <div class="delivery-pill">🛵 三杯以上即可外送</div>
+    </div>
+
+  </div><!-- /bottom -->
+
+  <!-- ── FOOTER ── -->
+  <div class="footer">
+    <span>大沏茶 DA QI CHA ｜ 桃園市中壢區龍東路154號 ｜ 03-4387828</span>
+    <span class="footer-right">買5送1 ｜ 自備環保杯 -$5 ｜ 三杯外送</span>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
